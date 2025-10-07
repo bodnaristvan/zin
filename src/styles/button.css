@@ -1,0 +1,38 @@
+button,
+input[type='submit'],
+input[type='button'] {
+  background-color: #e0e0e0;
+  border: 2px solid #999999;
+  color: #000000;
+  padding: 3px 10px;
+  /* font-family: Arial, Helvetica, sans-serif; */
+  font-size: 14px;
+  box-shadow: 1px 1px 0px #fff inset, -1px -1px 0px #bbb inset;
+  border-radius: 0;
+  outline: none;
+  font-family: monospace;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+}
+
+button:active,
+input[type='submit']:active,
+input[type='button']:active {
+  background-color: #cccccc;
+  border-color: #777777;
+}
+button:disabled,
+input[type='submit']:disabled,
+input[type='button']:disabled {
+  color: #999;
+  cursor: not-allowed;
+}
+
+button .icon {
+  font-size: 1.2em;
+  text-shadow: 0px 0px 3px #666;
+}

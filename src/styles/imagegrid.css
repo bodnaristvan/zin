@@ -1,0 +1,104 @@
+.images-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+
+  .images {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    min-height: 120px;
+    /* width: 50vw; */
+    margin: 0 auto;
+    justify-content: center;
+  }
+
+  .instruction {
+    text-align: center;
+    margin-bottom: 6px;
+    color: #666;
+    font-size: 18px;
+    font-style: italic;
+  }
+}
+
+.image-item {
+  background-color: #e0e0e0;
+  border: 2px solid #999999;
+  color: #000000;
+  padding: 3px 10px;
+  box-shadow: 1px 1px 0px #fff inset, -1px -1px 0px #bbb inset;
+  border-radius: 0;
+  outline: none;
+
+  position: relative;
+  width: 8vw;
+  aspect-ratio: 1 / 1.41416; /* A4 aspect ratio */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+  transition: box-shadow 0.2s;
+
+  &.dragging {
+    opacity: 0.5;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  }
+}
+
+.image-with-tools {
+  position: relative;
+
+  .loading-overlay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    img {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  img {
+    width: 100px;
+    max-height: 140px;
+    border-radius: 4px;
+    transition: transform 0.15s;
+  }
+
+  .delete-btn {
+    position: absolute;
+    bottom: 5px;
+    right: 2px;
+
+    background: #b3000050;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 0px 6px;
+    cursor: pointer;
+    font-size: 20px;
+    transition: background 0.15s;
+    opacity: 0;
+    &:hover {
+      background: #b30000;
+    }
+  }
+  &:hover .delete-btn {
+    opacity: 1;
+  }
+
+  .index-num {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+
+    background: #00000066;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 0px 6px;
+    font-size: 14px;
+  }
+}

@@ -1,0 +1,101 @@
+@import './styles/button.css';
+@import './styles/bookview.css';
+@import './styles/printview.css';
+@import './styles/printpreview.css';
+@import './styles/imagegrid.css';
+
+/* netscape colors */
+body {
+  /* font-family: Arial, sans-serif; */
+  /* font-family: 'Times New Roman', Times, serif; */
+  background-color: #cccccc;
+  color: #000;
+  /* font-family: Arial, Helvetica, sans-serif; */
+  font-size: 20px;
+  margin: 0;
+  padding: 0;
+
+  font-family: 'VT323', monospace;
+  font-weight: 400;
+  font-style: normal;
+}
+
+a:link {
+  color: #0000ff;
+}
+
+a:visited {
+  color: #ff00ff;
+}
+
+a:active {
+  color: #ff0000;
+}
+
+h1,
+h2,
+h3 {
+  /* font-family: Arial, Helvetica, sans-serif; */
+  font-weight: bold;
+  font-size: 2em;
+}
+@media (min-width: 800px) {
+  h1,
+  h2,
+  h3 {
+    font-size: 3em;
+  }
+}
+
+.container {
+  width: 80vw;
+  margin: 40px auto;
+  /* padding: 32px; */
+
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+/* header area, logo */
+header {
+  text-align: left;
+  font-size: 1em;
+  margin: 0.5em 1.5em;
+
+  h1 {
+    text-align: left;
+    font-size: 3em;
+    margin: 0;
+    margin-left: -1ch;
+  }
+  h2 {
+    font-size: 1em;
+    margin: 0;
+  }
+}
+@media (min-width: 800px) {
+  header {
+    font-size: 1.4em;
+    margin: 0.5em 2em;
+  }
+}
+
+.menu {
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+  flex-direction: column;
+}
+@media (min-width: 800px) {
+  .menu {
+    flex-direction: row;
+  }
+}
+
+.no-images-message {
+  text-align: center;
+  color: #666;
+  font-size: 18px;
+  font-style: italic;
+}

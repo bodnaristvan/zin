@@ -1,0 +1,66 @@
+.printpreview {
+  margin: 0em auto 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .sheet {
+    display: flex;
+    margin-bottom: 2em;
+    gap: 0.2em;
+  }
+
+  .page {
+    position: relative;
+    width: 15em;
+    padding: 1em 0.5em;
+    border: 1px solid #aaa;
+
+    display: flex;
+    align-items: center;
+
+    background-color: white;
+
+    .page-number {
+      position: absolute;
+      bottom: 0.2em;
+      right: 0.5em;
+      font-size: 0.8em;
+      color: #666;
+      z-index: 10;
+      padding: 0.2em;
+      background-color: white;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 0px;
+      height: 100%;
+      border: 0.5px dashed#ccc;
+      pointer-events: none;
+    }
+  }
+
+  .thumbnail {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+
+    img {
+      /* max-width: 80%; */
+      display: block;
+      transition: transform 0.15s;
+    }
+  }
+
+  .preview-item {
+    position: relative;
+    width: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
