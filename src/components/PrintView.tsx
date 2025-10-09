@@ -10,14 +10,17 @@ export const PrintablePages: React.FC = () => {
       {images &&
         createPages(images).map((page, idx) => (
           <div className="sheet" key={idx}>
-            {/* <div className="page-number">Page {page.pageNumber}</div> */}
             <div className="page left">
-              {page.imgLeft ? <Image img={page.imgLeft} /> : <Blank />}
-              <div className="caption">{page.imgLeft && page.imgLeft?.index + 1}</div>
+              <div className="page-layout">
+                {page.imgLeft ? <Image img={page.imgLeft} /> : <Blank />}
+                <div className="caption">{page.imgLeft && page.imgLeft?.index + 1}</div>
+              </div>
             </div>
             <div className="page right">
-              {page.imgRight ? <Image img={page.imgRight} /> : <Blank />}
-              <div className="caption">{page.imgRight && page.imgRight?.index + 1}</div>
+              <div className="page-layout">
+                {page.imgRight ? <Image img={page.imgRight} /> : <Blank />}
+                <div className="caption">{page.imgRight && page.imgRight?.index + 1}</div>
+              </div>
             </div>
           </div>
         ))}

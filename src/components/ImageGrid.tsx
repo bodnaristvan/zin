@@ -76,7 +76,7 @@ const ImageItem: React.FC<{
       onDragOver={e => e.preventDefault()}
       onDrop={e => handleDrop(e, idx)}
     >
-      <div className="image-with-tools">
+      <div className="page-layout">
         {img.state === 'loading' && (
           <div className="loading-overlay">
             <img src="/spinner.gif" />
@@ -91,12 +91,6 @@ const ImageItem: React.FC<{
               data-index={img.index}
             />
             <span className="index-num">{img.index + 1}</span>
-            <button
-              className="delete-btn"
-              onClick={() => dispatch?.({ type: 'deleted', index: img.index })}
-            >
-              ✕
-            </button>
           </>
         )}
         {/*
@@ -104,6 +98,15 @@ const ImageItem: React.FC<{
           ⟳
         </button>
         */}
+        <a
+          className="delete-text"
+          onClick={e => {
+            e.preventDefault()
+            dispatch?.({ type: 'deleted', index: img.index })
+          }}
+        >
+          Remove?
+        </a>
       </div>
     </div>
   )

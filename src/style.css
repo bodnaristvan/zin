@@ -1,8 +1,10 @@
 @import './styles/button.css';
+@import './styles/pagelayout.css';
 @import './styles/bookview.css';
 @import './styles/printview.css';
 @import './styles/printpreview.css';
 @import './styles/imagegrid.css';
+@import './styles/instructions.css';
 
 /* netscape colors */
 body {
@@ -86,6 +88,7 @@ header {
   justify-content: center;
   gap: 1em;
   flex-direction: column;
+  margin-bottom: 1em;
 }
 @media (min-width: 800px) {
   .menu {

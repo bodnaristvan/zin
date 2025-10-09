@@ -1,43 +1,33 @@
 .images-grid {
   display: flex;
   flex-direction: column;
-  gap: 1em;
+  gap: 0.5em;
 
   .images {
     display: flex;
     flex-wrap: wrap;
-    gap: 16px;
+    gap: 24px 12px;
     min-height: 120px;
-    /* width: 50vw; */
-    margin: 0 auto;
     justify-content: center;
   }
 
   .instruction {
     text-align: center;
-    margin-bottom: 6px;
-    color: #666;
-    font-size: 18px;
-    font-style: italic;
+    color: #444;
+    font-size: 0.7em;
   }
 }
 
 .image-item {
-  background-color: #e0e0e0;
-  border: 2px solid #999999;
+  background-color: #fff;
+  border: 1px solid #999999;
+  box-shadow: 1px 1px 2px 1px #aaa;
   color: #000000;
-  padding: 3px 10px;
-  box-shadow: 1px 1px 0px #fff inset, -1px -1px 0px #bbb inset;
-  border-radius: 0;
-  outline: none;
 
   position: relative;
-  width: 8vw;
+  width: 5em;
   aspect-ratio: 1 / 1.41416; /* A4 aspect ratio */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  padding: 5px;
   cursor: grab;
   transition: box-shadow 0.2s;
 
@@ -45,10 +35,6 @@
     opacity: 0.5;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
   }
-}
-
-.image-with-tools {
-  position: relative;
 
   .loading-overlay {
     display: flex;
@@ -61,44 +47,38 @@
   }
 
   img {
-    width: 100px;
-    max-height: 140px;
-    border-radius: 4px;
     transition: transform 0.15s;
   }
 
-  .delete-btn {
+  .delete-text {
     position: absolute;
-    bottom: 5px;
-    right: 2px;
-
-    background: #b3000050;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    padding: 0px 6px;
-    cursor: pointer;
-    font-size: 20px;
-    transition: background 0.15s;
+    bottom: -20px;
+    font-size: 10px;
     opacity: 0;
-    &:hover {
-      background: #b30000;
-    }
+    color: #0000ff;
+    cursor: pointer;
+    transition: opacity 0.25s;
   }
-  &:hover .delete-btn {
+  &:hover .delete-text {
     opacity: 1;
   }
 
   .index-num {
     position: absolute;
-    top: 5px;
-    left: 5px;
+    bottom: -24px;
+    text-align: center;
 
-    background: #00000066;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    padding: 0px 6px;
-    font-size: 14px;
+    color: #000;
+    font-size: 10px;
+    transition: opacity 0.25s;
+  }
+  &:hover .index-num {
+    opacity: 0;
+  }
+}
+
+@media (min-width: 800px) {
+  .image-item {
+    width: 6em;
   }
 }
