@@ -124,10 +124,10 @@ export const BookView = () => {
                 <div className="page-layout">
                   {left.state === 'loading' && (
                     <div className="loading-overlay">
-                      <img src="/spinner.gif" alt="Loading..." />
+                      <img src="./spinner.gif" alt="Loading..." />
                     </div>
                   )}
-                  {left.state === 'empty' && <img src="/spacer.gif" />}
+                  {left.state === 'empty' && <img src="./spacer.gif" />}
                   {left.state === 'ready' && (
                     <>
                       <img src={left.thumbnail} alt={`Page ${i * 2 + 1}`} />
@@ -144,10 +144,10 @@ export const BookView = () => {
                 <div className="page-layout">
                   {right.state === 'loading' && (
                     <div className="loading-overlay">
-                      <img src="/spinner.gif" alt="Loading..." />
+                      <img src="./spinner.gif" alt="Loading..." />
                     </div>
                   )}
-                  {right.state === 'empty' && <img src="/spacer.gif" />}
+                  {right.state === 'empty' && <img src="./spacer.gif" />}
                   {right.state === 'ready' && (
                     <img src={right.thumbnail} alt={`Page ${i * 2 + 2}`} />
                   )}

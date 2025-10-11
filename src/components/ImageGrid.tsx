@@ -79,7 +79,7 @@ const ImageItem: React.FC<{
       <div className="page-layout">
         {img.state === 'loading' && (
           <div className="loading-overlay">
-            <img src="/spinner.gif" />
+            <img src="./spinner.gif" />
           </div>
         )}
         {img.state === 'ready' && (
