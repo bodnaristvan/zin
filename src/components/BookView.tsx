@@ -61,20 +61,20 @@ export const BookView = () => {
         }
       })
 
-      if (mostVisiblePageIndex !== currentPage) {
-        setCurrentPage(mostVisiblePageIndex)
-      }
+      setCurrentPage(mostVisiblePageIndex)
     }
   }
 
   useEffect(() => {
     const container = bookRef.current
     if (container) {
+      let scrollTimeout: ReturnType<typeof setTimeout> | null = null
       const handleScroll = () => {
-        // Use requestAnimationFrame to debounce scroll events
-        requestAnimationFrame(updateCurrentPageFromScroll)
+        if (scrollTimeout) clearTimeout(scrollTimeout)
+        scrollTimeout = setTimeout(() => {
+          updateCurrentPageFromScroll()
+        }, 100) // 100ms after scroll stops
       }
-
       container.addEventListener('scroll', handleScroll, { passive: true })
       // Also update on initial load
       updateCurrentPageFromScroll()
@@ -118,32 +118,43 @@ export const BookView = () => {
     <div className="book-view-container">
       <div ref={bookRef} className="book-view">
         {pages.map(([left, right], i) => (
-          <div key={i} className="book-page-view">
+          <div key={i} className="sheet">
             {left ? (
-              <div className="book-page">
-                {left.state === 'loading' && (
-                  <div className="loading-overlay">
-                    <img src="/spinner.gif" alt="Loading..." />
-                  </div>
-                )}
-                {left.state === 'empty' && <img src="/spacer.gif" />}
-                {left.state === 'ready' && <img src={left.thumbnail} alt={`Page ${i * 2 + 1}`} />}
+              <div className="page">
+                <div className="page-layout">
+                  {left.state === 'loading' && (
+                    <div className="loading-overlay">
+                      <img src="/spinner.gif" alt="Loading..." />
+                    </div>
+                  )}
+                  {left.state === 'empty' && <img src="/spacer.gif" />}
+                  {left.state === 'ready' && (
+                    <>
+                      <img src={left.thumbnail} alt={`Page ${i * 2 + 1}`} />
+                      <div className="caption">{`${i * 2 + 1}`}</div>
+                    </>
+                  )}
+                </div>
               </div>
             ) : (
-              <div className="book-page book-placeholder"></div>
+              <div className="page book-placeholder"></div>
             )}
             {right ? (
-              <div className="book-page">
-                {right.state === 'loading' && (
-                  <div className="loading-overlay">
-                    <img src="/spinner.gif" alt="Loading..." />
-                  </div>
-                )}
-                {right.state === 'empty' && <img src="/spacer.gif" />}
-                {right.state === 'ready' && <img src={right.thumbnail} alt={`Page ${i * 2 + 2}`} />}
+              <div className="page">
+                <div className="page-layout">
+                  {right.state === 'loading' && (
+                    <div className="loading-overlay">
+                      <img src="/spinner.gif" alt="Loading..." />
+                    </div>
+                  )}
+                  {right.state === 'empty' && <img src="/spacer.gif" />}
+                  {right.state === 'ready' && (
+                    <img src={right.thumbnail} alt={`Page ${i * 2 + 2}`} />
+                  )}
+                </div>
               </div>
             ) : (
-              <div className="book-page book-placeholder"></div>
+              <div className="page book-placeholder"></div>
             )}
           </div>
         ))}
