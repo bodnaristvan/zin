@@ -1,6 +1,7 @@
 import React from 'react'
 import { useImages, useImagesDispatch } from '../app/ImagesContext'
 import type { ImageData } from '../app/ImagesContext'
+import spinnerGif from '../assets/spinner.gif'
 
 export const ImageGrid = () => {
   const images = useImages()
@@ -79,7 +80,7 @@ const ImageItem: React.FC<{
       <div className="page-layout">
         {img.state === 'loading' && (
           <div className="loading-overlay">
-            <img src="./spinner.gif" />
+            <img src={spinnerGif} />
           </div>
         )}
         {img.state === 'ready' && (

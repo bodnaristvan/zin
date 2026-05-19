@@ -1,16 +1,17 @@
 import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import { viteSingleFile } from 'vite-plugin-singlefile'
+import { resolve } from 'path'
 
 export default defineConfig({
   base: './',
-  publicDir: './public/',
+  plugins: [react(), viteSingleFile()],
+  publicDir: false,
   build: {
     outDir: 'dist',
+    assetsInlineLimit: 100_000_000,
     rollupOptions: {
-      input: '/Users/serif/src/fun/zin/index.html',
-      output: {
-        // Single HTML file output
-        manualChunks: () => 'everything',
-      },
+      input: resolve(__dirname, 'index.html'),
     },
   },
 })

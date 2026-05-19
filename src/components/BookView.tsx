@@ -2,6 +2,8 @@ import React, { useRef, useEffect, useState } from 'react'
 import { useImages } from '../app/ImagesContext'
 import type { ImageData } from '../app/ImagesContext'
 import { BLANK_IMAGE } from '../app/ImagesContext'
+import spinnerGif from '../assets/spinner.gif'
+import spacerGif from '../assets/spacer.gif'
 
 export const BookView = () => {
   const images = useImages()
@@ -124,10 +126,10 @@ export const BookView = () => {
                 <div className="page-layout">
                   {left.state === 'loading' && (
                     <div className="loading-overlay">
-                      <img src="./spinner.gif" alt="Loading..." />
+                      <img src={spinnerGif} alt="Loading..." />
                     </div>
                   )}
-                  {left.state === 'empty' && <img src="./spacer.gif" />}
+                  {left.state === 'empty' && <img src={spacerGif} />}
                   {left.state === 'ready' && (
                     <>
                       <img src={left.thumbnail} alt={`Page ${i * 2 + 1}`} />
@@ -144,10 +146,10 @@ export const BookView = () => {
                 <div className="page-layout">
                   {right.state === 'loading' && (
                     <div className="loading-overlay">
-                      <img src="./spinner.gif" alt="Loading..." />
+                      <img src={spinnerGif} alt="Loading..." />
                     </div>
                   )}
-                  {right.state === 'empty' && <img src="./spacer.gif" />}
+                  {right.state === 'empty' && <img src={spacerGif} />}
                   {right.state === 'ready' && (
                     <img src={right.thumbnail} alt={`Page ${i * 2 + 2}`} />
                   )}
