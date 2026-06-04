@@ -130,13 +130,9 @@ export const BookView = () => {
                     </div>
                   )}
                   {left.state === 'empty' && <img src={spacerGif} />}
-                  {left.state === 'ready' && (
-                    <>
-                      <img src={left.thumbnail} alt={`Page ${i * 2 + 1}`} />
-                      <div className="caption">{`${i * 2 + 1}`}</div>
-                    </>
-                  )}
+                  {left.state === 'ready' && <img src={left.thumbnail} alt={`Page ${i * 2}`} />}
                 </div>
+                {left.state === 'ready' && <div className="caption">{i * 2}</div>}
               </div>
             ) : (
               <div className="page book-placeholder"></div>
@@ -151,9 +147,10 @@ export const BookView = () => {
                   )}
                   {right.state === 'empty' && <img src={spacerGif} />}
                   {right.state === 'ready' && (
-                    <img src={right.thumbnail} alt={`Page ${i * 2 + 2}`} />
+                    <img src={right.thumbnail} alt={`Page ${i * 2 + 1}`} />
                   )}
                 </div>
+                {right.state === 'ready' && <div className="caption">{i * 2 + 1}</div>}
               </div>
             ) : (
               <div className="page book-placeholder"></div>

@@ -33,11 +33,10 @@ export const ImageGrid = () => {
       <div className="images">
         {images
           ?.sort((a, b) => a.index - b.index)
-          .map((img, idx) => (
+          .map(img => (
             <ImageItem
-              key={idx}
+              key={img.index}
               img={img}
-              idx={idx}
               handleDragStart={handleDragStart}
               handleDrop={handleDrop}
             />
@@ -49,33 +48,22 @@ export const ImageGrid = () => {
 
 const ImageItem: React.FC<{
   img: ImageData
-  idx: number
   handleDragStart: (e: React.DragEvent<HTMLDivElement>, idx: number) => void
   handleDrop: (e: React.DragEvent<HTMLDivElement>, toIdx: number) => void
-}> = ({ img, idx, handleDragStart, handleDrop }) => {
-  const images = useImages()
+}> = ({ img, handleDragStart, handleDrop }) => {
   const dispatch = useImagesDispatch()
-
-  /*
-  const handleRotate = (idx: number) => {
-    if (dispatch && images) {
-      dispatch({
-        type: 'changed',
-        image: { ...images[idx], rotation: (images[idx].rotation + 90) % 360 },
-      })
-    }
-  }
-  */
 
   return (
     <div
-      key={idx}
       className="image-item"
       draggable
-      onDragStart={e => handleDragStart(e, idx)}
+      onDragStart={e => {
+        e.currentTarget.classList.add('dragging')
+        handleDragStart(e, img.index)
+      }}
       onDragEnd={e => e.currentTarget.classList.remove('dragging')}
       onDragOver={e => e.preventDefault()}
-      onDrop={e => handleDrop(e, idx)}
+      onDrop={e => handleDrop(e, img.index)}
     >
       <div className="page-layout">
         {img.state === 'loading' && (
@@ -94,20 +82,12 @@ const ImageItem: React.FC<{
             <span className="index-num">{img.index + 1}</span>
           </>
         )}
-        {/*
-        <button className="rotate-btn" onClick={() => handleRotate(idx)}>
-          ⟳
-        </button>
-        */}
-        <a
+        <button
           className="delete-text"
-          onClick={e => {
-            e.preventDefault()
-            dispatch?.({ type: 'deleted', index: img.index })
-          }}
+          onClick={() => dispatch?.({ type: 'deleted', index: img.index })}
         >
           Remove?
-        </a>
+        </button>
       </div>
     </div>
   )

@@ -13,11 +13,14 @@
   .page {
     position: relative;
     width: 15em;
-    padding: 1em 0.5em;
+    aspect-ratio: 297 / 210;
+    padding: 0.5em 0;
     border: 1px solid #aaa;
+    box-sizing: border-box;
+    overflow: hidden;
 
     display: flex;
-    align-items: center;
+    align-items: stretch;
 
     background-color: white;
 
@@ -39,28 +42,48 @@
       left: 50%;
       width: 0px;
       height: 100%;
-      border: 0.5px dashed#ccc;
+      border: 0.5px dashed #ccc;
       pointer-events: none;
     }
   }
 
   .thumbnail {
     width: 50%;
-    display: flex;
-    justify-content: center;
-
-    img {
-      /* max-width: 80%; */
-      display: block;
-      transition: transform 0.15s;
-    }
+    min-height: 0;
+    padding: 0 0.5em;
+    box-sizing: border-box;
   }
 
   .preview-item {
     position: relative;
-    width: 120px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+  }
+
+  .image-with-tools {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+      transition: transform 0.15s;
+    }
+
+    .index-num {
+      position: absolute;
+      bottom: 0.3em;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.6em;
+      color: #666;
+      pointer-events: none;
+    }
   }
 }

@@ -35,12 +35,9 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({ onUploadStart }) =
       reader.onload = evt => {
         const src = evt.target?.result as string
         generateThumbnail(src).then(thumbnail => {
-          newImage.src = src
-          newImage.thumbnail = thumbnail
-          newImage.state = 'ready'
           dispatch?.({
             type: 'changed',
-            image: newImage,
+            image: { ...newImage, src, thumbnail, state: 'ready' },
           })
         })
       }
