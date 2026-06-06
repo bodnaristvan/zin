@@ -1,37 +1,28 @@
-/* 
-    Styles for print view.
-    Each page is A4 landscape, with two images side by side.
-    There's a 2mm gap between images, and images have an 8mm padding.
-    Each image has a caption / page number below it.
- */
 .printable-pages {
   display: none;
   margin: 0;
 
   .sheet {
-    /* A4 size */
+    /* A4 landscape */
     width: 297mm;
     height: 210mm;
     margin: 0;
-    position: relative;
     box-sizing: border-box;
     page-break-after: always;
     break-after: page;
     overflow: hidden;
 
-    display: flex;
-    flex-wrap: nowrap;
     justify-content: center;
     align-items: center;
-    gap: 2mm;
+  }
+
+  .sheet::after {
+    display: none;
   }
 
   .page {
-    width: 50%;
     height: 100%;
-    padding: 8mm;
-
-    box-sizing: border-box;
+    width: auto;
   }
 }
 

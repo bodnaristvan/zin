@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useImages, createSheets } from '../app/ImagesContext'
-import type { ImageData, Page } from '../app/ImagesContext'
+import type { Page as PageType } from '../app/ImagesContext'
+import { Page } from './Page'
 
 export const PrintPreview: React.FC = () => {
   const images = useImages()
@@ -18,9 +19,9 @@ export const PrintPreview: React.FC = () => {
       {images && (
         <div className="sheets">
           {createSheets(images).map((sheet, idx) => (
-            <div className="sheet" key={idx}>
-              <SheetPage page={sheet.front} sheetNum={idx + 1} className="front" />
-              <SheetPage page={sheet.back} sheetNum={idx + 1} className="back" />
+            <div className="sheet-pair" key={idx}>
+              <SheetSide page={sheet.front} sheetNum={idx + 1} side="front" />
+              <SheetSide page={sheet.back} sheetNum={idx + 1} side="back" />
             </div>
           ))}
         </div>
@@ -29,44 +30,18 @@ export const PrintPreview: React.FC = () => {
   )
 }
 
-const SheetPage: React.FC<{
-  page: Page
+const SheetSide: React.FC<{
+  page: PageType
   sheetNum: number
-  className: string
-}> = ({ page, sheetNum, className }) => {
+  side: string
+}> = ({ page, sheetNum, side }) => {
   return (
-    <div className={`page ${className}`}>
+    <div className={`sheet ${side}`}>
+      <Page img={page.imgLeft} />
+      <Page img={page.imgRight} />
       <div className="page-number">
         Sheet {sheetNum} / Page {page.pageNumber}
       </div>
-      <div className="thumbnail thumbnail-left">
-        {page.imgLeft ? <Image img={page.imgLeft} /> : <Blank />}
-      </div>
-      <div className="thumbnail thumbnail-right">
-        {page.imgRight ? <Image img={page.imgRight} /> : <Blank />}
-      </div>
     </div>
   )
-}
-
-const Image: React.FC<{
-  img: ImageData
-}> = ({ img }) => {
-  return (
-    <div key={img.index} className="preview-item">
-      <div className="image-with-tools">
-        <img
-          src={img.thumbnail}
-          alt={img.name}
-          style={{ transform: `rotate(${img.rotation}deg)` }}
-          data-index={img.index}
-        />
-        <span className="index-num">{img.index + 1}</span>
-      </div>
-    </div>
-  )
-}
-
-const Blank: React.FC = () => {
-  return <div className="blank-page">Blank Page</div>
 }

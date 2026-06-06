@@ -26,65 +26,56 @@
     padding: 0.5em 1em 1em;
     scroll-padding-inline-start: 1em;
 
+    /* Hide scrollbar on the actual scrolling element */
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
     .sheet {
       width: var(--book-view-width);
       aspect-ratio: 1.41416 / 1;
-      display: flex;
-      flex-direction: row;
+      flex: 0 0 auto;
       scroll-snap-align: start;
-
-      /* Hide scrollbars */
-      &::-webkit-scrollbar {
-        display: none;
-      }
-      scrollbar-width: none;
-      -ms-overflow-style: none;
 
       box-shadow: 1px 2px 6px 2px rgba(0, 0, 0, 0.1);
       border: 1px solid #ccc;
 
-      .book-page:first-of-type {
-        border-right: 1px dashed #dadada;
+      /* First (cover) and last (back) sheets show a single page. Drop the
+         spread's card + fold mark and let the lone page be its own card,
+         pushed to one side — like a closed book before it's opened. */
+      &:first-of-type,
+      &:last-of-type {
+        box-shadow: none;
+        border: none;
+
+        &::after {
+          display: none;
+        }
+
+        .page {
+          box-shadow: 1px 2px 6px 2px rgba(0, 0, 0, 0.1);
+          border: 1px solid #ccc;
+        }
       }
 
-      &:last-of-type {
-        margin-right: 50%;
-        .page:last-of-type {
+      &:first-of-type {
+        justify-content: flex-end; /* cover aligned to the right */
+        .page:first-of-type {
           display: none;
         }
       }
-      &:first-of-type {
-        margin-left: 50%;
-        scroll-snap-align: end;
-        .page:first-of-type {
+      &:last-of-type {
+        justify-content: flex-start; /* back page aligned to the left */
+        .page:last-of-type {
           display: none;
         }
       }
     }
 
     .page {
-      position: relative;
-      background: #fff;
       width: calc(var(--book-view-width) / 2);
-      aspect-ratio: 1 / 1.41416;
-      padding: 14px;
-      box-sizing: border-box;
-
-      .loading-overlay {
-        width: 30px;
-        height: 30px;
-        opacity: 0.7;
-      }
-
-      .caption {
-        position: absolute;
-        bottom: 2px;
-        width: 100%;
-        text-align: center;
-        font-size: 9px;
-        font-family: Arial, Helvetica, sans-serif;
-        color: #555;
-      }
 
       &.book-placeholder {
         background: #f0f0f0;

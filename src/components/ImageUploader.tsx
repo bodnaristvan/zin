@@ -28,6 +28,8 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({ onUploadStart }) =
         name: file.name,
         rotation: 0,
         thumbnail: '',
+        fit: 'contain',
+        caption: '',
         state: 'loading',
       }
       dispatch?.({ type: 'added', image: newImage })

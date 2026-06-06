@@ -1,89 +1,41 @@
 .printpreview {
-  margin: 0em auto 0;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 2em;
+
+  .sheet-pair {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.6em;
+  }
 
   .sheet {
-    display: flex;
-    margin-bottom: 2em;
-    gap: 0.2em;
+    width: 18em;
+    aspect-ratio: 297 / 210;
+    border: 1px solid #aaa;
+    background-color: white;
+    box-sizing: border-box;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
   }
 
   .page {
-    position: relative;
-    width: 15em;
-    aspect-ratio: 297 / 210;
-    padding: 0.5em 0;
-    border: 1px solid #aaa;
-    box-sizing: border-box;
-    overflow: hidden;
-
-    display: flex;
-    align-items: stretch;
-
-    background-color: white;
-
-    .page-number {
-      position: absolute;
-      bottom: 0.2em;
-      right: 0.5em;
-      font-size: 0.8em;
-      color: #666;
-      z-index: 10;
-      padding: 0.2em;
-      background-color: white;
-    }
-
-    &::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 50%;
-      width: 0px;
-      height: 100%;
-      border: 0.5px dashed #ccc;
-      pointer-events: none;
-    }
-  }
-
-  .thumbnail {
-    width: 50%;
-    min-height: 0;
-    padding: 0 0.5em;
-    box-sizing: border-box;
-  }
-
-  .preview-item {
-    position: relative;
-    width: 100%;
     height: 100%;
-    min-height: 0;
+    width: auto;
   }
 
-  .image-with-tools {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    min-height: 0;
-
-    img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      object-position: center;
-      transition: transform 0.15s;
-    }
-
-    .index-num {
-      position: absolute;
-      bottom: 0.3em;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 0.6em;
-      color: #666;
-      pointer-events: none;
-    }
+  .page-number {
+    position: absolute;
+    bottom: 0.2em;
+    right: 0.4em;
+    font-size: 0.6em;
+    color: #666;
+    z-index: 10;
+    padding: 0.1em 0.3em;
+    background-color: rgba(255, 255, 255, 0.85);
   }
 }

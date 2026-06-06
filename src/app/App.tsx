@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { ImagesProvider } from './ImagesContext'
+import { ImagesProvider, PageSettingsProvider, usePageSettings } from './ImagesContext'
 import { PrintablePages } from '../components/PrintView'
 import { ImageGrid } from '../components/ImageGrid'
 import { PrintPreview } from '../components/PrintPreview'
@@ -17,10 +17,21 @@ enum DisplayedModule {
 }
 
 const App: React.FC = () => {
-  const [displayedModule, setDisplayedModule] = useState(DisplayedModule.InstructionsView)
-
   return (
     <ImagesProvider>
+      <PageSettingsProvider>
+        <AppShell />
+      </PageSettingsProvider>
+    </ImagesProvider>
+  )
+}
+
+const AppShell: React.FC = () => {
+  const [displayedModule, setDisplayedModule] = useState(DisplayedModule.InstructionsView)
+  const { margin } = usePageSettings()
+
+  return (
+    <div className="app" style={{ '--page-margin': `${margin}%` } as React.CSSProperties}>
       <header>
         <h1>'zin</h1>
         <h2>A tool for printing your photos.</h2>
@@ -34,7 +45,7 @@ const App: React.FC = () => {
             <div className="icon">📖</div> Book View
           </button>
           <button onClick={() => setDisplayedModule(DisplayedModule.ImageGrid)}>
-            <div className="icon">✂️</div> Reorder Images
+            <div className="icon">✏️</div> Edit Images
           </button>
           <button onClick={() => setDisplayedModule(DisplayedModule.PrintPreview)}>
             <div className="icon">📄</div> Sheets View
@@ -57,7 +68,7 @@ const App: React.FC = () => {
       </div>
 
       <PrintablePages />
-    </ImagesProvider>
+    </div>
   )
 }
 

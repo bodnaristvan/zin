@@ -2,8 +2,7 @@ import React, { useRef, useEffect, useState } from 'react'
 import { useImages } from '../app/ImagesContext'
 import type { ImageData } from '../app/ImagesContext'
 import { BLANK_IMAGE } from '../app/ImagesContext'
-import spinnerGif from '../assets/spinner.gif'
-import spacerGif from '../assets/spacer.gif'
+import { Page } from './Page'
 
 export const BookView = () => {
   const images = useImages()
@@ -121,40 +120,8 @@ export const BookView = () => {
       <div ref={bookRef} className="book-view">
         {pages.map(([left, right], i) => (
           <div key={i} className="sheet">
-            {left ? (
-              <div className="page">
-                <div className="page-layout">
-                  {left.state === 'loading' && (
-                    <div className="loading-overlay">
-                      <img src={spinnerGif} alt="Loading..." />
-                    </div>
-                  )}
-                  {left.state === 'empty' && <img src={spacerGif} />}
-                  {left.state === 'ready' && <img src={left.thumbnail} alt={`Page ${i * 2}`} />}
-                </div>
-                {left.state === 'ready' && <div className="caption">{i * 2}</div>}
-              </div>
-            ) : (
-              <div className="page book-placeholder"></div>
-            )}
-            {right ? (
-              <div className="page">
-                <div className="page-layout">
-                  {right.state === 'loading' && (
-                    <div className="loading-overlay">
-                      <img src={spinnerGif} alt="Loading..." />
-                    </div>
-                  )}
-                  {right.state === 'empty' && <img src={spacerGif} />}
-                  {right.state === 'ready' && (
-                    <img src={right.thumbnail} alt={`Page ${i * 2 + 1}`} />
-                  )}
-                </div>
-                {right.state === 'ready' && <div className="caption">{i * 2 + 1}</div>}
-              </div>
-            ) : (
-              <div className="page book-placeholder"></div>
-            )}
+            {left ? <Page img={left} /> : <div className="page book-placeholder"></div>}
+            {right ? <Page img={right} /> : <div className="page book-placeholder"></div>}
           </div>
         ))}
       </div>

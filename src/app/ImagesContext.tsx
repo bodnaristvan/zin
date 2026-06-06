@@ -1,4 +1,6 @@
-import React, { createContext, useContext, useReducer } from 'react'
+import React, { createContext, useContext, useReducer, useState } from 'react'
+
+export type Fit = 'contain' | 'cover'
 
 export type ImageData = {
   index: number
@@ -6,6 +8,8 @@ export type ImageData = {
   name: string
   rotation: number
   thumbnail: string // thumbnail image
+  fit: Fit // 'contain' = fit on page, 'cover' = fill page
+  caption: string // user-set caption, may contain HTML
   state: 'loading' | 'empty' | 'ready'
 }
 
@@ -15,6 +19,8 @@ export const BLANK_IMAGE: ImageData = {
   name: 'Blank Page',
   rotation: 0,
   thumbnail: '',
+  fit: 'contain',
+  caption: '',
   state: 'empty',
 }
 
@@ -50,9 +56,38 @@ export function useImagesDispatch() {
   return useContext(ImagesDispatchContext)
 }
 
+// Global page settings, applied uniformly to every page in every view.
+export type PageSettingsValue = {
+  showCaption: boolean
+  margin: number // page margin, in percent of page width
+  setShowCaption: (v: boolean) => void
+  setMargin: (v: number) => void
+}
+
+const PageSettingsContext = createContext<PageSettingsValue | null>(null)
+
+export function PageSettingsProvider({ children }: { children: React.ReactNode }) {
+  const [showCaption, setShowCaption] = useState(false)
+  const [margin, setMargin] = useState(4)
+
+  return (
+    <PageSettingsContext.Provider value={{ showCaption, margin, setShowCaption, setMargin }}>
+      {children}
+    </PageSettingsContext.Provider>
+  )
+}
+
+export function usePageSettings(): PageSettingsValue {
+  const ctx = useContext(PageSettingsContext)
+  if (!ctx) throw new Error('usePageSettings must be used within a PageSettingsProvider')
+  return ctx
+}
+
 type ImagesAction =
   | { type: 'added'; image: ImageData }
   | { type: 'changed'; image: ImageData }
+  | { type: 'setFit'; index: number; fit: Fit }
+  | { type: 'setCaption'; index: number; caption: string }
   | { type: 'reorder'; fromIdx: number; toIdx: number }
   | { type: 'deleted'; index: number }
   | { type: 'reindex' }
@@ -83,6 +118,12 @@ function imagesReducer(images: ImageData[], action: ImagesAction) {
           return t
         }
       })
+    }
+    case 'setFit': {
+      return images.map(t => (t.index === action.index ? { ...t, fit: action.fit } : t))
+    }
+    case 'setCaption': {
+      return images.map(t => (t.index === action.index ? { ...t, caption: action.caption } : t))
     }
     case 'reorder': {
       const { fromIdx, toIdx } = action

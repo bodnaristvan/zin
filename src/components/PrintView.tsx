@@ -1,6 +1,6 @@
 import React from 'react'
 import { useImages, createPages } from '../app/ImagesContext'
-import type { ImageData } from '../app/ImagesContext'
+import { Page } from './Page'
 
 export const PrintablePages: React.FC = () => {
   const images = useImages()
@@ -10,30 +10,10 @@ export const PrintablePages: React.FC = () => {
       {images &&
         createPages(images).map((page, idx) => (
           <div className="sheet" key={idx}>
-            <div className="page left">
-              <div className="page-layout">
-                {page.imgLeft ? <Image img={page.imgLeft} /> : <Blank />}
-                <div className="caption">{page.imgLeft && page.imgLeft?.index + 1}</div>
-              </div>
-            </div>
-            <div className="page right">
-              <div className="page-layout">
-                {page.imgRight ? <Image img={page.imgRight} /> : <Blank />}
-                <div className="caption">{page.imgRight && page.imgRight?.index + 1}</div>
-              </div>
-            </div>
+            <Page img={page.imgLeft} hiRes />
+            <Page img={page.imgRight} hiRes />
           </div>
         ))}
     </div>
   )
-}
-
-const Image: React.FC<{
-  img: ImageData
-}> = ({ img }) => {
-  return <img src={img.src} alt={img.name} />
-}
-
-const Blank: React.FC = () => {
-  return <div className="blank-page"></div>
 }

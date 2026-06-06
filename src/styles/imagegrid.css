@@ -6,7 +6,7 @@
   .images {
     display: flex;
     flex-wrap: wrap;
-    gap: 24px 12px;
+    gap: 28px 16px;
     min-height: 120px;
     justify-content: center;
   }
@@ -18,36 +18,115 @@
   }
 }
 
+/* Global page settings (caption + margin), the editing hub for the zine. */
+.page-settings {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5em;
+  font-size: 0.7em;
+
+  label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    cursor: pointer;
+  }
+
+  .margin-value {
+    min-width: 3ch;
+    text-align: right;
+  }
+}
+
 .image-item {
+  position: relative;
+  width: 5em;
   background-color: #fff;
   border: 1px solid #999999;
   box-shadow: 1px 1px 2px 1px #aaa;
   color: #000000;
-
-  position: relative;
-  width: 5em;
-  aspect-ratio: 1 / 1.41416; /* A4 aspect ratio */
-  padding: 5px;
   cursor: grab;
-  transition: box-shadow 0.2s;
+  transition:
+    box-shadow 0.2s,
+    outline-color 0.2s;
+  outline: 2px solid transparent;
+  outline-offset: 1px;
+
+  .page {
+    width: 100%;
+  }
 
   &.dragging {
     opacity: 0.5;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
   }
 
-  .loading-overlay {
+  &.selected {
+    outline-color: #0000ff;
+  }
+
+  /* position chip — always visible so reorder order is clear */
+  .index-num {
+    position: absolute;
+    top: 2px;
+    left: 4px;
+    font-size: 10px;
+    color: #000;
+    background-color: rgba(255, 255, 255, 0.85);
+    padding: 0 0.3em;
+    border-radius: 2px;
+    z-index: 6;
+    pointer-events: none;
+  }
+
+  /* per-image fit toggle, shown when the item is selected */
+  .fit-controls {
+    position: absolute;
+    top: 2px;
+    right: 2px;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    img {
-      width: 20px;
-      height: 20px;
+    gap: 2px;
+    z-index: 7;
+
+    button {
+      font-size: 10px;
+      padding: 1px 4px;
+      cursor: pointer;
+      border: 1px solid #999;
+      background: #fff;
+      color: #000;
+      box-shadow: none;
+
+      &.active {
+        background: #0000ff;
+        color: #fff;
+        border-color: #0000ff;
+      }
     }
   }
 
-  img {
-    transition: transform 0.15s;
+  /* caption editor — bottom-left, distinct from the Fit/Fill toggle */
+  .caption-edit {
+    position: absolute;
+    bottom: 2px;
+    left: 2px;
+    z-index: 7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3px 5px;
+    line-height: 1;
+    cursor: pointer;
+    border: 1px solid #999;
+    background: #fff;
+    color: #000;
+    box-shadow: none;
+
+    span {
+      font-size: 9px; /* smaller glyph inside the button so it reads clearly */
+    }
   }
 
   .delete-text {
@@ -57,27 +136,17 @@
     padding: 0;
     position: absolute;
     bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
     font-size: 10px;
     opacity: 0;
     color: #0000ff;
     cursor: pointer;
     transition: opacity 0.25s;
+    z-index: 7;
   }
-  &:hover .delete-text {
+  &.selected .delete-text {
     opacity: 1;
-  }
-
-  .index-num {
-    position: absolute;
-    bottom: -24px;
-    text-align: center;
-
-    color: #000;
-    font-size: 10px;
-    transition: opacity 0.25s;
-  }
-  &:hover .index-num {
-    opacity: 0;
   }
 }
 
