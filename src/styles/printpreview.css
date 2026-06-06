@@ -13,7 +13,8 @@
   }
 
   .sheet {
-    width: 18em;
+    /* scale each printable side with the viewport, within sensible bounds */
+    width: clamp(12em, 40vw, 28em);
     aspect-ratio: 297 / 210;
     border: 1px solid #aaa;
     background-color: white;

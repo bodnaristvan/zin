@@ -3,13 +3,13 @@ import { useImages } from '../app/ImagesContext'
 
 export const PrintButton: React.FC = () => {
   const images = useImages()
-  function handlePrintBook() {
+  function handlePrint() {
     window.print()
   }
 
   return (
-    <button disabled={!images || images.length === 0} onClick={handlePrintBook}>
-      <div className="icon">🖨️</div> Print Book
+    <button disabled={!images || images.length === 0} onClick={handlePrint}>
+      <div className="icon">🖨️</div> Print Zine
     </button>
   )
 }
