@@ -1,3 +1,8 @@
+@page {
+  size: A4 landscape;
+  margin: 0;
+}
+
 .printable-pages {
   display: none;
   margin: 0;
@@ -8,12 +13,20 @@
     height: 210mm;
     margin: 0;
     box-sizing: border-box;
+    overflow: hidden;
+
+    /* page break after each sheet; page-break-* is what Safari honors */
     page-break-after: always;
     break-after: page;
-    overflow: hidden;
 
     justify-content: center;
     align-items: center;
+
+    /* avoid a trailing blank page after the last sheet */
+    &:last-child {
+      page-break-after: auto;
+      break-after: auto;
+    }
   }
 
   .sheet::after {
@@ -21,16 +34,14 @@
   }
 
   .page {
+    /* explicit half-sheet size — don't rely on aspect-ratio while printing */
+    width: 50%;
     height: 100%;
-    width: auto;
+    aspect-ratio: auto;
   }
 }
 
 @media print {
-  @page {
-    size: A4 landscape;
-    margin: 0;
-  }
   header,
   .container {
     display: none !important;
@@ -38,6 +49,9 @@
   body {
     background: transparent !important;
     margin: 0;
+    /* let page/image backgrounds actually print in Safari */
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
   .printable-pages {
     display: block;
