@@ -27,6 +27,9 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  /* Size container so a rotated image can be sized to the area's opposite
+     dimensions (cqh/cqw) and fill the page after a quarter turn. */
+  container-type: size;
 }
 
 .page-image img {

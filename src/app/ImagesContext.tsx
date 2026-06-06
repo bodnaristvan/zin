@@ -88,6 +88,7 @@ type ImagesAction =
   | { type: 'changed'; image: ImageData }
   | { type: 'setFit'; index: number; fit: Fit }
   | { type: 'setCaption'; index: number; caption: string }
+  | { type: 'rotate'; index: number }
   | { type: 'reorder'; fromIdx: number; toIdx: number }
   | { type: 'deleted'; index: number }
   | { type: 'reindex' }
@@ -124,6 +125,11 @@ function imagesReducer(images: ImageData[], action: ImagesAction) {
     }
     case 'setCaption': {
       return images.map(t => (t.index === action.index ? { ...t, caption: action.caption } : t))
+    }
+    case 'rotate': {
+      return images.map(t =>
+        t.index === action.index ? { ...t, rotation: (t.rotation + 90) % 360 } : t
+      )
     }
     case 'reorder': {
       const { fromIdx, toIdx } = action

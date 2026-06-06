@@ -128,6 +128,17 @@ const ImageItem: React.FC<{
             >
               Fill
             </button>
+            <button
+              type="button"
+              className="rotate-btn"
+              title="Rotate 90°"
+              onClick={e => {
+                e.stopPropagation()
+                dispatch?.({ type: 'rotate', index: img.index })
+              }}
+            >
+              ↻
+            </button>
           </div>
           {showCaption && (
             <button
