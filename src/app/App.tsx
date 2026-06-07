@@ -41,11 +41,11 @@ const AppShell: React.FC = () => {
         <div className="menu">
           <ImageUploader onUploadStart={() => setDisplayedModule(DisplayedModule.ImageGrid)} />
 
-          <button onClick={() => setDisplayedModule(DisplayedModule.BookView)}>
-            <div className="icon">📖</div> Book View
-          </button>
           <button onClick={() => setDisplayedModule(DisplayedModule.ImageGrid)}>
             <div className="icon">✏️</div> Edit Images
+          </button>
+          <button onClick={() => setDisplayedModule(DisplayedModule.BookView)}>
+            <div className="icon">📖</div> Book View
           </button>
           <button onClick={() => setDisplayedModule(DisplayedModule.PrintPreview)}>
             <div className="icon">📄</div> Sheets View
